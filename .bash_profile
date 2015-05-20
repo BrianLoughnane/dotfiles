@@ -87,41 +87,63 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 ### Git Aliases via gitimmersion
 
-alias gcl='git clone'
+# git clone, cd into repo, and ls
+
+function gcl {
+    url=$1;
+    reponame=$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//');
+    git clone $url $reponame;
+    cd $reponame;
+    ls;
+}
+
+
 alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
+alias gba='git branch -a'
 alias gc='git commit '
 alias gd='git diff '
+alias gdm='git diff master'
+alias gh='git hist'
+alias gha='git hist --all'
 alias gm='git merge'
+alias gmm='git merge master'
 alias gr='git reset'
-alias gundo='git reset HEAD~'
-alias grv='git remove -v'
+alias grh='git reset --hard'
+alias gundo='git reset --hard HEAD'
+alias grem='git remote '
+alias grm='git rm '
+alias gmv='git mv '
 alias go='git checkout '
 alias gob='git checkout -b'
 alias gom='git checkout master'
+alias god='git checkout develop'
+alias gp='git push'
 alias gpo='git push origin'
 alias gpom='git push origin master'
-alias gp='git push'
 alias gpl='git pull'
-alias gpum='git pull upstream master'
+alias gplum='git pull upstream master'
 alias gf='git fetch'
 alias gfu='git fetch upstream'
 alias grb='git rebase'
 alias grbm='git rebase master'
 alias grbc='git rebase --continue'
-alias gacm='git add.; git commit -m'
+alias gt='git tag '
+alias gacm='git add . ; git commit -m'
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
-
+alias g='git'
 
 ### Navigational Shortcuts
 
-alias dt='cd ~/Desktop'
-alias dw='cd ~/Downloads'
-alias hr='cd ~/hackreactor'
+alias dt='cd ~/Desktop && ls'
+alias dw='cd ~/Downloads && ls'
+alias hr='cd ~/hackreactor && ls'
+alias github='cd ~/code/github && ls'
+alias code='cd ~/code && ls'
 
 # Application Shortcuts
 
@@ -129,18 +151,54 @@ chrome () {
 	open -a "Google Chrome" "$1"
 }
 
+strap () {
+	open -a "Google Chrome" "http://bookstrap.hackreactor.com"	
+}
+
 ff () {
 	open -a "Firefox" "$1"
 }
 
-slack () {
-	open -a "Slack"
+mail () {
+	open -a "Firefox" "https://mail.google.com"
+}
+
+maps () {
+	open -a "Google Chrome" "https://maps.google.com"
+}
+
+gayle () {
+	open -a "Firefox" "https://www.facebook.com/gayle.schooley.9?fref=ts"
 }
 
 skype () {
 	open -a "Skype"
 }
 
+text () {
+	open -a "TextEdit" "$1"
+}
+
+tote () {
+	touch "$1"
+	open -a "TextEdit" "$1"
+}
+
+note () {
+	open -a "Notational Velocity"
+}
+
+card () {
+	open -a "Anki"
+}
+
+fiddle () {
+	cd ~/code/fiddles
+	cp -r fiddle-template fiddle-"$1"
+	cd fiddle-"$1"
+	subl .
+	chrome index.html	
+}
 
 # Functional Shortcuts
 
@@ -159,13 +217,18 @@ b () {
 	ls
 }
 
-alias cl='clear'
+alias cl='clear && ls'
 alias clera="clear"
 
-alias npmi='npm install'
+alias npmi='npm install '
 alias npmig='npm install -g'
 
 tosu () {
 	touch "$1"
 	subl "$1"
 }
+
+# z () {
+# 	"$1"
+# 	ls
+# }
