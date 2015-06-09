@@ -27,6 +27,7 @@ alias fiddles='cd ~/code/fiddles'
 
 # create and run a fiddle
 fiddle () {
+	pushd .
   cd ~/code/fiddles
   cp -r fiddle-template "$1"-fiddle
   cd "$1"-fiddle
