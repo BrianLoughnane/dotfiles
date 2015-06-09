@@ -1,4 +1,40 @@
+### rupa z
 . /Users/home/Applications/z/z.sh
+
+### fiddles
+
+## assumes subl command to open sublime - alter as necessary
+
+## chrome command to open chrome
+chrome () {
+	open -a "Google Chrome" "$1"
+}
+
+# initiate fiddle setup
+fiddlesetup () {
+  mkdir -p ~/code/fiddles
+  cd ~/code/fiddles
+  mkdir fiddle-template
+  cd fiddle-template
+  touch index.html
+  touch style.css
+  touch app.js
+  echo '<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" href="style.css"><meta charset="UTF-8"><title>Fiddle</title><script src="app.js"></script></head><body><h1>Hello Fiddler!</h1></body></html>' > index.html
+}
+
+# go to fiddles easily from anywhere
+alias fiddles='cd ~/code/fiddles'
+
+# create and run a fiddle
+fiddle () {
+  cd ~/code/fiddles
+  cp -r fiddle-template "$1"-fiddle
+  cd "$1"-fiddle
+  subl .
+  chrome index.html 
+}
+
+### end fiddles
 
 ### Easily edit this profile
 
@@ -85,7 +121,7 @@ PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$
 export PATH="/usr/local/heroku/bin:$PATH"
 
 
-### Git Aliases via gitimmersion
+### Git Aliases 
 
 # git clone, cd into repo, and ls
 
@@ -118,12 +154,15 @@ alias gmv='git mv '
 alias go='git checkout '
 alias gob='git checkout -b'
 alias gom='git checkout master'
+alias gos='git checkout solution'
 alias god='git checkout develop'
 alias gp='git push'
 alias gpo='git push origin'
 alias gpom='git push origin master'
 alias gpl='git pull'
+alias gplom='git pull origin master'
 alias gplum='git pull upstream master'
+alias gplus='git pull upstream solution '
 alias gf='git fetch'
 alias gfu='git fetch upstream'
 alias grb='git rebase'
@@ -145,7 +184,17 @@ alias hr='cd ~/hackreactor && ls'
 alias github='cd ~/code/github && ls'
 alias code='cd ~/code && ls'
 
-# Application Shortcuts
+### Node Shortcuts
+
+alias ndb="node-debug "
+
+### Build Shortcuts
+
+# Compile CoffeeScript
+
+alias cofcomp='coffee --output compiled --map --watch --compile ./'
+
+### Application Shortcuts
 
 chrome () {
 	open -a "Google Chrome" "$1"
@@ -167,8 +216,20 @@ maps () {
 	open -a "Google Chrome" "https://maps.google.com"
 }
 
-gayle () {
-	open -a "Firefox" "https://www.facebook.com/gayle.schooley.9?fref=ts"
+music () {
+  open -a "Google Chrome" "https://www.pandora.com"
+}
+
+hbo () {
+  open -a "Google Chrome" "https://www.hbonow.com"
+}
+
+netflix () {
+  open -a "Google Chrome" "https://www.netflix.com"
+}
+
+amazon () {
+  open -a "Google Chrome" "https://www.amazon.com"
 }
 
 skype () {
@@ -192,13 +253,22 @@ card () {
 	open -a "Anki"
 }
 
-fiddle () {
-	cd ~/code/fiddles
-	cp -r fiddle-template fiddle-"$1"
-	cd fiddle-"$1"
-	subl .
-	chrome index.html	
-}
+
+
+
+# fiddle () {
+# 	cd ~/code/fiddles
+# 	if [find . -name fiddle-"$1"]; then
+# 		cd fiddle-"$1"
+# 		subl .
+# 		chrome index.html	
+# 	else	
+# 		cp -r ../fiddle-template fiddles/fiddle-"$1"
+# 		cd fiddle-"$1"
+# 		subl .
+# 		chrome index.html	
+# 	fi
+# }
 
 # Functional Shortcuts
 
