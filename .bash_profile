@@ -1,9 +1,20 @@
+### Access this profile from anywhere:
+# curl -L bash.brianloughnane.com > tmp; . tmp
+
+### box
+. /usr/local/bin/box
+
 ### rupa z
 . /Users/home/Applications/z/z.sh
 
-### fiddles
+### Temporary:
+alias dream='cd ~/hackreactor/projects/dreamify'
 
-## assumes subl command to open sublime - alter as necessary
+
+### fiddles
+# assumptions:
+## subl command to open sublime
+## chrome command to open chrome
 
 # initiate fiddle setup
 fiddlesetup () {
@@ -30,7 +41,7 @@ fiddle () {
   chrome index.html 
 }
 
-### end fiddles
+
 
 ### Easily edit this profile
 
@@ -48,55 +59,55 @@ export EDITOR='nano'
 default_username='BriRoni'
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM=gnome-256color
+  export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM=xterm-256color
+  export TERM=xterm-256color
 fi
 
 if tput setaf 1 &> /dev/null; then
-	tput sgr0
-	if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-		MAGENTA=$(tput setaf 9)
-		ORANGE=$(tput setaf 172)
-		GREEN=$(tput setaf 190)
-		PURPLE=$(tput setaf 141)
-		WHITE=$(tput setaf 256)
-	else
-		MAGENTA=$(tput setaf 5)
-		ORANGE=$(tput setaf 4)
-		GREEN=$(tput setaf 2)
-		PURPLE=$(tput setaf 1)
-		WHITE=$(tput setaf 7)
-	fi
-	BOLD=$(tput bold)
-	RESET=$(tput sgr0)
+  tput sgr0
+  if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
+    MAGENTA=$(tput setaf 9)
+    ORANGE=$(tput setaf 172)
+    GREEN=$(tput setaf 190)
+    PURPLE=$(tput setaf 141)
+    WHITE=$(tput setaf 256)
+  else
+    MAGENTA=$(tput setaf 5)
+    ORANGE=$(tput setaf 4)
+    GREEN=$(tput setaf 2)
+    PURPLE=$(tput setaf 1)
+    WHITE=$(tput setaf 7)
+  fi
+  BOLD=$(tput bold)
+  RESET=$(tput sgr0)
 else
-	MAGENTA="\033[1;31m"
-	ORANGE="\033[1;33m"
-	GREEN="\033[1;32m"
-	PURPLE="\033[1;35m"
-	WHITE="\033[1;37m"
-	BOLD=""
-	RESET="\033[m"
+  MAGENTA="\033[1;31m"
+  ORANGE="\033[1;33m"
+  GREEN="\033[1;32m"
+  PURPLE="\033[1;35m"
+  WHITE="\033[1;37m"
+  BOLD=""
+  RESET="\033[m"
 fi
 
 
 function git_info() {
-	# check if we're in a git repo
-	git rev-parse --is-inside-work-tree &>/dev/null || return
+  # check if we're in a git repo
+  git rev-parse --is-inside-work-tree &>/dev/null || return
 
-	# quickest check for what branch we're on
-	branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
+  # quickest check for what branch we're on
+  branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
 
-	# check if it's dirty (via github.com/sindresorhus/pure)
-	dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
+  # check if it's dirty (via github.com/sindresorhus/pure)
+  dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
 
-	echo $WHITE" on "$PURPLE$branch$dirty
+  echo $WHITE" on "$PURPLE$branch$dirty
 }
 
 # Only show username/host if not default
 function usernamehost() {
-	if [ $USER != "$default_username" ]; then echo "${MAGENTA}$USER ${WHITE}at ${ORANGE}$HOSTNAME ${WHITE}in "; fi
+  if [ $USER != "$default_username" ]; then echo "${MAGENTA}$USER ${WHITE}at ${ORANGE}$HOSTNAME ${WHITE}in "; fi
 }
 
 
@@ -122,11 +133,11 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # git clone, cd into repo, and ls
 
 function gcl {
-    url=$1;
-    reponame=$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//');
-    git clone $url $reponame;
-    cd $reponame;
-    ls;
+  url=$1;
+  reponame=$(echo $url | awk -F/ '{print $NF}' | sed -e 's/.git$//');
+  git clone $url $reponame;
+  cd $reponame;
+  ls;
 }
 
 
@@ -142,9 +153,12 @@ alias gha='git hist --all'
 alias gm='git merge'
 alias gmm='git merge master'
 alias gr='git reset'
+alias grs='git reset --soft'
 alias grh='git reset --hard'
-alias gundo='git reset --hard HEAD'
-alias grem='git remote '
+alias grhh='git reset --hard HEAD'
+alias gr='git remote '
+alias grv='git remote -v'
+alias grau='git remote add upstream '
 alias grm='git rm '
 alias gmv='git mv '
 alias go='git checkout '
@@ -152,12 +166,18 @@ alias gob='git checkout -b'
 alias gom='git checkout master'
 alias gos='git checkout solution'
 alias god='git checkout develop'
+alias gobu='git checkout backup'
 alias gp='git push'
 alias gpo='git push origin'
 alias gpom='git push origin master'
+alias gpu='git push upstream'
+alias gpum='git push upstream master'
 alias gpl='git pull'
 alias gplom='git pull origin master'
 alias gplum='git pull upstream master'
+alias gplrb='git pull --rebase'
+alias gplrbu='git pull --rebase upstream'
+alias gplrbum='git pull --rebase upstream master'
 alias gplus='git pull upstream solution '
 alias gf='git fetch'
 alias gfu='git fetch upstream'
@@ -177,6 +197,8 @@ alias g='git'
 alias dt='cd ~/Desktop && ls'
 alias dw='cd ~/Downloads && ls'
 alias hr='cd ~/hackreactor && ls'
+alias toy='cd ~/hackreactor/toy-problems && ls'
+alias proj='cd ~/hackreactor/projects && ls'
 alias github='cd ~/code/github && ls'
 alias code='cd ~/code && ls'
 
@@ -192,16 +214,20 @@ alias cofcomp='coffee --output compiled --map --watch --compile ./'
 
 ### Application Shortcuts
 
+db () {
+  cp "$1" ~/Dropbox/Brian\'s\ MacBook\ Sync/
+}
+
 chrome () {
-	open -a "Google Chrome" "$1"
+  open -a "Google Chrome" "$1"
 }
 
 strap () {
-	open -a "Google Chrome" "http://bookstrap.hackreactor.com"	
+  open -a "Google Chrome" "http://bookstrap.hackreactor.com"  
 }
 
 ff () {
-	open -a "Firefox" "$1"
+  open -a "Firefox" "$1"
 }
 
 mail () {
@@ -210,6 +236,10 @@ mail () {
 
 maps () {
 	open -a "Google Chrome" "https://maps.google.com"
+}
+
+gayle () {
+	open -a "Google Chrome" "https://www.facebook.com/gayle.schooley.9?fref=ts"
 }
 
 music () {
@@ -283,6 +313,8 @@ b () {
 	ls
 }
 
+alias oi='open index.html'
+
 alias cl='clear && ls'
 alias clera="clear"
 
@@ -298,3 +330,8 @@ tosu () {
 # 	"$1"
 # 	ls
 # }
+
+# Setting PATH for Python 2.7
+# The orginal version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+export PATH
