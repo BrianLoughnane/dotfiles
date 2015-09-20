@@ -1,0 +1,22 @@
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[user]
+	name = BrianLoughnane
+	email = BrianJLoughnane@gmail.com
+[github]
+	user = brianloughnane
+[push]
+	default = simple
+[core]
+	autocrlf = false
+	safecrlf = true
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
