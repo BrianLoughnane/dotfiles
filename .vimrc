@@ -52,16 +52,18 @@ filetype plugin on
 filetype indent on
 
 " Set to auto read when a file is changed from the outside
-set autoread
+"set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
-" Fast saving
+" Fast common actions
 nmap <leader>w :w!<cr>
+nmap <leader>q :q<cr>
 nmap <leader>wq :wq<cr>
+nmap <leader>bd :bd<cr>
 
 " reload vimrc
 map <leader>rc :so ~/.vimrc<cr>
@@ -181,7 +183,7 @@ set number
 syntax enable
 
 try
-    colorscheme zenburn
+    colorscheme industry
 catch
     colorscheme peachpuff
 endtry
@@ -245,13 +247,6 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" " Treat long lines as break lines (useful when moving around in them)
-"  map j gj
-"  map k gk
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -369,11 +364,13 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 " To go to the previous search results do:
 "   <leader>p
 "
-map <leader>cc :botright cope<cr>
+" map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
+" python-syntax highlighter (https://github.com/hdima/python-syntax)
+let python_highlight_all = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
