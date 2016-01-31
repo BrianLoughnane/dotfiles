@@ -1,6 +1,10 @@
 ### Access this profile from anywhere:
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
+### Editor
+alias vim="mvim -v"
+export EDITOR='vim'
+
 ### box
 . /usr/local/bin/box
 
@@ -45,13 +49,13 @@ fiddle () {
 
 ### Easily edit this profile
 
-alias prof="subl ~/.bash_profile"
+alias prof="vim ~/.bash_profile"
 alias reprof=". ~/.bash_profile"
 
 # PS1="\h \w $ "
 
+# why? : 
 export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
-export EDITOR='nano'
 
 # @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
 # Shamelessly copied from https://github.com/gf3/dotfiles
