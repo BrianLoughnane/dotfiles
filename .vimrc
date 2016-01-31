@@ -66,9 +66,18 @@ nmap <leader>w :w!<cr>
 map <leader>y "*y
 map <leader>p "*p
 
+" easily switch between tabs/buffers
+map gh :tabprevious
+map gl :tabnext
+map gj :bp
+map gk :bn
+
+" replay macro assigned to Q (overwrite ex mode)  (ex mode is stupi')
+map Q @q   
+
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" command W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -83,8 +92,11 @@ set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-" Turn on the WiLd menu
-set wildmenu
+" Turn on the wild menu
+" set wildmenu
+"
+" Turn on wildmode
+set wildmode=list:longest,full
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -119,7 +131,7 @@ set ignorecase
 set smartcase
 
 " Highlight search results
-set hlsearch
+" set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch 
@@ -144,6 +156,16 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+set nocompatible        " Disable vi compatibility.
+set textwidth=0         " Disable wrapping
+set nowrap              " don't make it look like there are line breaks where there aren't
+
+" Allow usage of mouse in iTerm
+set ttyfast
+set mouse=a
+
+"Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -215,9 +237,9 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
+" " Treat long lines as break lines (useful when moving around in them)
+"  map j gj
+"  map k gk
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
@@ -283,6 +305,8 @@ set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
+" this is what I had from Michael:
+" set statusline+=%F
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
