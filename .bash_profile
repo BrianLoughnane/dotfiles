@@ -1,19 +1,38 @@
 ### Access this profile from anywhere:
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
-### Editor
-alias vim="mvim -v"
+### editor
+alias vim='mvim -v'
 export EDITOR='vim'
 
-### box
-. /usr/local/bin/box
+#open file with vim in new iterm tab
+v() {
+  osascript -e 'activate application "iTerm"' -e 'tell application "System Events" to keystroke "t" using command down' -e "tell application \"iTerm\" to tell session -1 of current terminal to write text \"vim \
+  $1 $2 $3 $4 $5 $6 $7 $8 $9 \n \""
+}
 
 ### rupa z
-. /Users/home/Applications/z/z.sh
+if [ -d "/Users/lucid" ]; then
+  . /Users/lucid/Applications/z/z.sh
+else
+  . /Users/home/Applications/z/z.sh
+fi
+
+### python
+alias p='python'
 
 ### Temporary:
-alias dream='cd ~/hackreactor/projects/dreamify'
-
+# alias dream='cd ~/hackreactor/projects/dreamify'
+alias ser='cd /Users/lucid/code/luciddg-server && ls'
+alias mod='cd /Users/lucid/code/luciddg-server/modules && ls'
+alias jav='cd /Users/lucid/code/luciddg-server/modules/javascript/www && ls'
+alias app='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps && ls'
+alias com='cd /Users/lucid/code/luciddg-server/modules/javascript/www/common && ls'
+alias bv='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps/bill-verification && ls'
+alias bud='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps/budgeting && ls'
+alias sty='cd /Users/lucid/code/luciddg-server/modules/styles/www/analytics && ls'
+alias tem='cd /Users/lucid/code/luciddg-server/modules/templates/www/analytics && ls'
+alias dja='cd /Users/lucid/code/luciddg-server/modules/django && ls'
 
 ### fiddles
 # assumptions:
@@ -45,16 +64,19 @@ fiddle () {
   chrome index.html 
 }
 
-
-
 ### Easily edit this profile
-
 alias prof="vim ~/.bash_profile"
 alias reprof=". ~/.bash_profile"
 
-# PS1="\h \w $ "
+# Vagrant helpers
+alias vagprof="cp ~/.bash_profile ~/code/luciddg-server/.bash_profile.tmp"
+alias vagssh="vagrant ssh"
+alias vagant="cd modules/django/dashboard && ant"
+alias up="./docker/compose/ldg-compose -c 'docker.dev.analytics.ldgrc' up"
+alias lup="./docker/compose/ldg-compose up"
 
-# why? : 
+# PS1="\h \w $ "
+# why?:
 export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 # @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
@@ -131,7 +153,6 @@ PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-
 ### Git Aliases 
 
 # git clone, cd into repo, and ls
@@ -144,23 +165,21 @@ function gcl {
   ls;
 }
 
-
 alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
 alias gba='git branch -a'
 alias gc='git commit '
+alias gcf='git clean -f '
 alias gd='git diff '
 alias gdm='git diff master'
 alias gh='git hist'
 alias gha='git hist --all'
 alias gm='git merge'
 alias gmm='git merge master'
-alias gr='git reset'
 alias grs='git reset --soft'
 alias grh='git reset --hard'
 alias grhh='git reset --hard HEAD'
-alias gr='git remote '
 alias grv='git remote -v'
 alias grau='git remote add upstream '
 alias grm='git rm '
@@ -168,7 +187,7 @@ alias gmv='git mv '
 alias go='git checkout '
 alias gob='git checkout -b'
 alias gom='git checkout master'
-alias gos='git checkout solution'
+alias gos='git checkout sprint'
 alias god='git checkout develop'
 alias gobu='git checkout backup'
 alias gp='git push'
@@ -182,11 +201,14 @@ alias gplum='git pull upstream master'
 alias gplrb='git pull --rebase'
 alias gplrbu='git pull --rebase upstream'
 alias gplrbum='git pull --rebase upstream master'
+alias gplrbo='git pull --rebase origin '
+alias gplrbos='git pull --rebase origin sprint'
 alias gplus='git pull upstream solution '
 alias gf='git fetch'
 alias gfu='git fetch upstream'
 alias grb='git rebase'
 alias grbm='git rebase master'
+alias grbs='git rebase sprint'
 alias grbc='git rebase --continue'
 alias gt='git tag '
 alias gacm='git add . ; git commit -m'
@@ -194,10 +216,10 @@ alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
-alias g='git'
 
 ### Navigational Shortcuts
 
+alias ll='ls -al'
 alias dt='cd ~/Desktop && ls'
 alias dw='cd ~/Downloads && ls'
 alias hr='cd ~/hackreactor && ls'
@@ -218,12 +240,32 @@ alias cofcomp='coffee --output compiled --map --watch --compile ./'
 
 ### Application Shortcuts
 
+gi () {
+  grep -i "$1" "$2"
+}
+
+gr () {
+  grep -r "$1" .
+}
+
+gri () {
+  grep -ri "$1" .
+}
+
+fd () {
+  find . -name "$1"
+}
+
 db () {
   cp "$1" ~/Dropbox/Brian\'s\ MacBook\ Sync/
 }
 
 chrome () {
   open -a "Google Chrome" "$1"
+}
+
+slack () {
+  open -a "Slack"
 }
 
 strap () {
@@ -240,10 +282,6 @@ mail () {
 
 maps () {
 	open -a "Google Chrome" "https://maps.google.com"
-}
-
-gayle () {
-	open -a "Google Chrome" "https://www.facebook.com/gayle.schooley.9?fref=ts"
 }
 
 music () {
@@ -319,7 +357,8 @@ b () {
 
 alias oi='open index.html'
 
-alias cl='clear && ls'
+alias cl='clear'
+alias cls='clear && ls'
 alias clera="clear"
 
 alias npmi='npm install '
