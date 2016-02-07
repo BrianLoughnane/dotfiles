@@ -62,6 +62,9 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" reload vimrc
+map <leader>rc :so ~/.vimrc<cr>
+
 " copy and paste to system clipboard
 map <leader>y "*y
 map <leader>p "*p
@@ -166,6 +169,9 @@ set mouse=a
 
 "Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
+
+" show numbers
+set number
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
