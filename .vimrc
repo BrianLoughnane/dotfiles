@@ -171,18 +171,19 @@ set mouse=a
 "Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
-" show numbers
+" show numbers on left of screen
 set number
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 try
-    colorscheme desert
+    colorscheme zenburn
 catch
+    colorscheme peachpuff
 endtry
 
 set background=dark
