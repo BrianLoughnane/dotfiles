@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/lucid/code/luciddg-server/modules/javascript/www/common/utils/dom-util'
+let g:netrw_dirhist_2='/Users/lucid/code/luciddg-server/modules/javascript/www/common/validators'
+let g:netrw_dirhist_3='/Users/lucid/code/luciddg-server/modules/javascript/www/charts/decorators/chart'
+let g:netrw_dirhist_4='/Users/lucid/code/luciddg-server/modules/templates'
