@@ -2,7 +2,7 @@
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
 ### editor
-alias vim='mvim -v'
+# alias vim='mvim -v'
 export EDITOR='vim'
 
 #open file with vim in new iterm tab
@@ -11,28 +11,32 @@ v() {
   $1 $2 $3 $4 $5 $6 $7 $8 $9 \n \""
 }
 
-### rupa z
-if [ -d "/Users/lucid" ]; then
-  . /Users/lucid/Applications/z/z.sh
-else
-  . /Users/home/Applications/z/z.sh
-fi
-
 ### python
 alias p='python'
 
 ### Temporary:
 # alias dream='cd ~/hackreactor/projects/dreamify'
-alias ser='cd /Users/lucid/code/luciddg-server && ls'
-alias mod='cd /Users/lucid/code/luciddg-server/modules && ls'
-alias jav='cd /Users/lucid/code/luciddg-server/modules/javascript/www && ls'
-alias app='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps && ls'
-alias com='cd /Users/lucid/code/luciddg-server/modules/javascript/www/common && ls'
-alias bv='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps/bill-verification && ls'
-alias bud='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps/budgeting && ls'
-alias sty='cd /Users/lucid/code/luciddg-server/modules/styles/www/analytics && ls'
-alias tem='cd /Users/lucid/code/luciddg-server/modules/templates/www/analytics && ls'
-alias dja='cd /Users/lucid/code/luciddg-server/modules/django && ls'
+alias ser='cd /home/brian/code/luciddg-server && ls'
+alias II='cd /home/brian/code/luciddg-server-II && ls'
+alias vag='cd /vagrant && ls'
+alias mod='cd /home/brian/code/luciddg-server/modules && ls'
+alias jav='cd /home/brian/code/luciddg-server/modules/javascript/www && ls'
+alias app='cd /home/brian/code/luciddg-server/modules/javascript/www/apps && ls'
+alias com='cd /home/brian/code/luciddg-server/modules/javascript/www/common && ls'
+alias mig='cd /home/brian/code/luciddg-server/modules/django/bin/migrations && ls'
+alias testing='cd /home/brian/code/luciddg-server/modules/django/dashboard/testing && ls'
+
+comp() {
+  cd /home/brian/code/luciddg-server/modules/javascript/www/common/components/$1 && ls
+}
+
+alias bv='cd /home/brian/code/luciddg-server/modules/javascript/www/apps/bill-verification && ls'
+alias bud='cd /home/brian/code/luciddg-server/modules/javascript/www/apps/budgeting-v2 && ls'
+alias sty='cd /home/brian/code/luciddg-server/modules/styles/www/ && ls'
+alias tem='cd /home/brian/code/luciddg-server/modules/templates/www && ls'
+alias dja='cd /home/brian/code/luciddg-server/modules/django && ls'
+alias dash='cd /home/brian/code/luciddg-server/modules/django/dashboard && ls'
+alias svg='cd /home/bria/home/briandg-server/modules/www/static/images/svg-store && ls'
 
 ### fiddles
 # assumptions:
@@ -68,12 +72,24 @@ fiddle () {
 alias prof="vim ~/.bash_profile"
 alias reprof=". ~/.bash_profile"
 
+### Easily edit vimrc
+alias vimrc="vim ~/.vimrc"
+
 # Vagrant helpers
 alias vagprof="cp ~/.bash_profile ~/code/luciddg-server/.bash_profile.tmp"
 alias vagssh="vagrant ssh"
 alias vagant="cd modules/django/dashboard && ant"
 alias up="./docker/compose/ldg-compose -c 'docker.dev.analytics.ldgrc' up"
 alias lup="./docker/compose/ldg-compose up"
+alias sta="sudo service apache2 stop"
+alias st="sudo nginx -s stop"
+
+dockerm() {
+  docker rm --force `docker ps -qa`
+}
+
+# Common duties
+alias load="/vagrant/env load_mysql" # Fresh data dump
 
 # PS1="\h \w $ "
 # why?:
@@ -178,20 +194,40 @@ alias gha='git hist --all'
 alias gm='git merge'
 alias gmm='git merge master'
 alias grs='git reset --soft'
-alias grh='git reset --hard'
-alias grhh='git reset --hard HEAD'
+alias grh='git reset head'
+alias grhh='git reset head --hard'
 alias grv='git remote -v'
 alias grau='git remote add upstream '
 alias grm='git rm '
 alias gmv='git mv '
 alias go='git checkout '
 alias gob='git checkout -b'
+function gbf {
+  git branch | grep $1
+}
+function gof {
+  git branch | grep $1 | head -1 | xargs git checkout
+}
+
+function branch {
+  gb | grep \* | cut -b 3-
+}
+
+function backup {
+  gb | grep \* | cut -b 3- | awk '{print $1"_backup"}' | xargs git branch
+}
+
+function backupD {
+  gb | grep \* | cut -b 3- | awk '{print $1"_backup"}' | xargs git branch -D
+}
+
 alias gom='git checkout master'
 alias gos='git checkout sprint'
 alias god='git checkout develop'
 alias gobu='git checkout backup'
 alias gp='git push'
 alias gpo='git push origin'
+alias gposu='git push --set-upstream origin `branch`'
 alias gpom='git push origin master'
 alias gpu='git push upstream'
 alias gpum='git push upstream master'
@@ -210,12 +246,20 @@ alias grb='git rebase'
 alias grbm='git rebase master'
 alias grbs='git rebase sprint'
 alias grbc='git rebase --continue'
+alias grba='git rebase --abort'
+alias gcp='git cherry-pick'
+alias gcpc='git cherry-pick --continue'
 alias gt='git tag '
 alias gacm='git add . ; git commit -m'
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
+alias gsl='git stash list'
+alias gss='git stash save '
+function gsa {
+  git stash apply stash@{$1}
+}
 
 ### Navigational Shortcuts
 
@@ -252,8 +296,32 @@ gri () {
   grep -ri "$1" .
 }
 
+acki () {
+  ack -i "$1" .
+}
+
+class () {
+  ack -i "class $1"
+}
+
+def () {
+  ack -i "def $1"
+}
+
 fd () {
   find . -name "$1"
+}
+
+fdi () {
+  find . -iname "$1"
+}
+
+fdd () {
+  find . -type d -name "$1"
+}
+
+fddi () {
+  find . -type d -iname "$1"
 }
 
 db () {
@@ -262,6 +330,10 @@ db () {
 
 chrome () {
   open -a "Google Chrome" "$1"
+}
+
+safari () {
+  open -a "Safari" "$1"
 }
 
 slack () {
@@ -378,3 +450,6 @@ tosu () {
 # The orginal version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 export PATH
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
