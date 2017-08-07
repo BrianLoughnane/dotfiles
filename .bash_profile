@@ -50,6 +50,22 @@ alias svg='cd /Users/lucid/code/luciddg-server/modules/www/static/images/svg-sto
 ## subl command to open sublime
 ## chrome command to open chrome
 
+luciddg_server="/Users/lucid/code/luciddg-server";
+failed_stash="$luciddg_server/.failed.tmp"
+failed_tests="$luciddg_server/modules/django/dashboard/testing/.failed"
+
+stashF () {
+  if [ "$1" = "--apply" ]; then
+    eval "cp $failed_stash $failed_tests"
+  elif [ "$1" = "--stash" ]; then
+    eval "cp $failed_tests $failed_stash"
+  elif [ "$1" = "--print-failed" ]; then
+    cat `echo $failed_tests`
+  elif [ "$1" = "--print-stash" ]; then
+    cat `echo $failed_stash`
+  fi
+}
+
 # initiate fiddle setup
 fiddlesetup () {
   mkdir -p ~/code/fiddles
@@ -264,8 +280,20 @@ alias got='git '
 alias get='git '
 alias gsl='git stash list'
 alias gss='git stash save '
+
+# git branch current
+function gbc {
+  br=$(git branch | ack "\* ")
+  br=${br//\* /}
+  echo ${br}
+}
+
 function gsa {
   git stash apply stash@{$1}
+}
+
+function gsq {
+  git reset --soft $1 && git commit --amend
 }
 
 ### Navigational Shortcuts
@@ -307,13 +335,22 @@ acki () {
   ack -i "$1" .
 }
 
+agi () {
+  ag -i "$1" .
+}
+
 class () {
-  ack -i "class $1"
+  ag -i "class $1"
 }
 
 def () {
-  ack -i "def $1"
+  ag -i "def $1"
 }
+
+imp () {
+  ag -i "import.*$1"
+}
+
 
 fd () {
   find . -name "$1"

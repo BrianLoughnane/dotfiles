@@ -81,6 +81,14 @@ map gk :bn
 " replay macro assigned to Q (overwrite ex mode)  (ex mode is stupi')
 map Q @q   
 
+" to save/record a macro, do the following
+" qq
+" (type macro contents)
+" q
+" from normal mode: "qp will paste the macro contents
+" set contents in a variable like so: (called using @i from normal mode)
+let @i = 'iimport ipdb; ipdb.set_trace();'
+
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 " command W w !sudo tee % > /dev/null
