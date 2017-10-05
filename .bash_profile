@@ -52,7 +52,7 @@ alias svg='cd /Users/lucid/code/luciddg-server/modules/www/static/images/svg-sto
 
 luciddg_server="/Users/lucid/code/luciddg-server";
 failed_stash="$luciddg_server/.failed.tmp"
-failed_tests="$luciddg_server/modules/django/dashboard/testing/.failed"
+failed_tests="$luciddg_server/modules/django/dashboard/testing/.failed/current"
 
 stashF () {
   if [ "$1" = "--apply" ]; then
