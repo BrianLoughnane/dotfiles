@@ -1,9 +1,9 @@
 ### Access this profile from anywhere:
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
-# easily edit this profile
-alias prof="vim $HOME/.bash_profile"
-alias reprof=". $HOME/.bash_profile"
+# easily edit this profile - replace with bprof
+#alias prof="vim $HOME/.bash_profile"
+#alias reprof=". $HOME/.bash_profile"
 
 # Dotfiles repo
 export DOTFILES_REPO="$HOME/code/dotfiles"
@@ -18,7 +18,7 @@ alias bprof="\
 
 alias tmprof="\
   vim $HOME/.tmux.conf && \
-  . $HOME/.tmux.conf && \
+  tmux source-file $HOME/.tmux.conf && \
   cp_dotfiles_from_home_to_repo \
 "
 
