@@ -1,0 +1,5 @@
+cp ~/.bash_profile $DOTFILES_REPO
+cp ~/.gitconfig $DOTFILES_REPO
+cp ~/.vimrc $DOTFILES_REPO
+cp ~/.tmux.conf $DOTFILES_REPO
+

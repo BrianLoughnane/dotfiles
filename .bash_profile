@@ -1,6 +1,11 @@
 ### Access this profile from anywhere:
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
+# Dotfiles repo
+export DOTFILES_REPO="$HOME/code/dotfiles"
+export PATH=$PATH:$DOTFILES_REPO
+alias dotfiles="cd $DOTFILES_REPO"
+
 # casandra / tutorial
 export CASSANDRA_HOME=$HOME/cassandra
 export PATH=$PATH:$CASSANDRA_HOME/bin
