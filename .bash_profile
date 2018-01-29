@@ -1,10 +1,26 @@
 ### Access this profile from anywhere:
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
+# easily edit this profile
+alias prof="vim $HOME/.bash_profile"
+alias reprof=". $HOME/.bash_profile"
+
 # Dotfiles repo
 export DOTFILES_REPO="$HOME/code/dotfiles"
 export PATH=$PATH:$DOTFILES_REPO
 alias dotfiles="cd $DOTFILES_REPO"
+
+alias bprof="\
+  vim $HOME/.bash_profile && \
+  . $HOME/.bash_profile && \
+  cp_dotfiles_from_home_to_repo \
+"
+
+alias tmprof="\
+  vim $HOME/.tmux.conf && \
+  . $HOME/.tmux.conf && \
+  cp_dotfiles_from_home_to_repo \
+"
 
 # casandra / tutorial
 export CASSANDRA_HOME=$HOME/cassandra
@@ -136,10 +152,6 @@ fiddle () {
   subl .
   chrome index.html 
 }
-
-### Easily edit this profile
-alias prof="vim ~/.bash_profile"
-alias reprof=". ~/.bash_profile"
 
 ### Easily edit vimrc
 alias vimrc="vim ~/.vimrc"
