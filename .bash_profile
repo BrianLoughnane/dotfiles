@@ -1,6 +1,47 @@
 ### Access this profile from anywhere:
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
+# casandra / tutorial
+export CASSANDRA_HOME=$HOME/cassandra
+export PATH=$PATH:$CASSANDRA_HOME/bin
+
+#  --> maven
+export MAVEN_HOME=$HOME/maven
+export PATH=$PATH:$MAVEN_HOME/bin
+
+# retropie stuff
+snes () {
+  cp "$1" /Volumes/roms/snes
+}
+
+# databae project
+alias bae='cd /Users/home/code/projects/databae'
+alias backend='cd /Users/home/code/projects/databae/src/backend'
+alias activate='source ~/.virtualenvs/databae_backend/bin/activate'
+
+# fast.ai tutorial
+alias fast='cd /Users/home/code/tutorials/fast.ai'
+
+# Postgres stuff:
+
+# start server:
+# postgres -D /usr/local/var/postgres/
+
+# connect to server
+# psql
+
+# cli interface
+# \list
+# \connect
+# \dt
+# \d
+
+# copy data from csv:
+#copy zip_codes from '/path/to/csv/ZIP_CODES.txt' DELIMITERS ',' CSV;
+
+
+
+
 ### editor
 alias vim='mvim -v'
 export EDITOR='vim'
@@ -303,7 +344,7 @@ alias dt='cd ~/Desktop && ls'
 alias dw='cd ~/Downloads && ls'
 alias hr='cd ~/hackreactor && ls'
 alias toy='cd ~/hackreactor/toy-problems && ls'
-alias proj='cd ~/hackreactor/projects && ls'
+alias proj='cd ~/code/projects && ls'
 alias github='cd ~/code/github && ls'
 alias code='cd ~/code && ls'
 
@@ -496,3 +537,6 @@ PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 export PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# added by Anaconda2 5.0.1 installer
+export PATH="/Users/home/anaconda2/bin:$PATH"
