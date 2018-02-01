@@ -2,8 +2,8 @@
 # curl -L bash.brianloughnane.com > tmp; . tmp
 
 # easily edit this profile - replace with bprof
-#alias prof="vim $HOME/.bash_profile"
-#alias reprof=". $HOME/.bash_profile"
+#alias prof="vim $HOME/.bash_profile" (replace with bprof)
+alias reprof=". $HOME/.bash_profile"
 
 # Dotfiles repo
 export DOTFILES_REPO="$HOME/code/dotfiles"
@@ -92,8 +92,8 @@ alias mod='cd /Users/lucid/code/luciddg-server/modules && ls'
 alias jav='cd /Users/lucid/code/luciddg-server/modules/javascript/www && ls'
 alias app='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps && ls'
 alias com='cd /Users/lucid/code/luciddg-server/modules/javascript/www/common && ls'
-alias mig='cd /Users/lucid/code/luciddg-server/modules/django/bin/migrations && ls'
 alias testing='cd /Users/lucid/code/luciddg-server/modules/django/dashboard/testing && ls'
+alias mig='vagrant ssh -- -t "cd /vagrant && docker exec compose_www_1 python /code/luciddg-server/modules/django/dashboard/manage.py migrations apply"'
 
 comp() {
   cd /Users/lucid/code/luciddg-server/modules/javascript/www/common/components/$1 && ls
