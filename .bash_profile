@@ -16,9 +16,14 @@ alias bprof="\
   cp_dotfiles_from_home_to_repo \
 "
 
-alias tmprof="\
+alias tprof="\
   vim $HOME/.tmux.conf && \
   tmux source-file $HOME/.tmux.conf && \
+  cp_dotfiles_from_home_to_repo \
+"
+
+alias vprof="\
+  vim $HOME/.vimrc && \
   cp_dotfiles_from_home_to_repo \
 "
 
@@ -125,6 +130,10 @@ stashF () {
     cat `echo $failed_tests`
   elif [ "$1" = "--print-stash" ]; then
     cat `echo $failed_stash`
+  elif [ "$1" = "--edit-stash" ]; then
+    eval "vim $failed_stash"
+  elif [ "$1" = "--edit-failed" ]; then
+    eval "vim $failed_tests"
   fi
 }
 
