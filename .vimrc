@@ -130,6 +130,7 @@ nmap <leader>bd :bd<cr>
 map <leader>rc :so ~/.vimrc<cr>
 
 " copy and paste to system clipboard
+set clipboard=unnamed
 map <leader>y "*y
 map <leader>p "*p
 
