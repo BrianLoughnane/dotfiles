@@ -150,6 +150,7 @@ map Q @q
 " from normal mode: "qp will paste the macro contents
 " set contents in a variable like so: (called using @i from normal mode)
 let @i = 'iimport ipdb; ipdb.set_trace();'
+let @l = 'ifrom dashboard.core import logger; logger.warning("sminky");'
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -290,18 +291,18 @@ set noswapfile
 set expandtab
 
 " Be smart when using tabs ;)
-set smarttab
+"set smarttab
 
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
 
 " Linebreak on 500 characters
-set lbr
-set tw=500
+"set lbr
+"set tw=80
 
-set ai "Auto indent
-set si "Smart indent
+"set ai "Auto indent
+"set si "Smart indent
 set wrap "Wrap lines
 
 

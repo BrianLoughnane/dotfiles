@@ -72,12 +72,6 @@ alias fast='cd /Users/home/code/tutorials/fast.ai'
 alias vim='mvim -v'
 export EDITOR='vim'
 
-#open file with vim in new iterm tab
-v() {
-  osascript -e 'activate application "iTerm"' -e 'tell application "System Events" to keystroke "t" using command down' -e "tell application \"iTerm\" to tell session -1 of current terminal to write text \"vim \
-  $1 $2 $3 $4 $5 $6 $7 $8 $9 \n \""
-}
-
 ### rupa z
 if [ -d "/Users/lucid" ]; then
   . /Users/lucid/Applications/z/z.sh
@@ -98,7 +92,58 @@ alias jav='cd /Users/lucid/code/luciddg-server/modules/javascript/www && ls'
 alias app='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps && ls'
 alias com='cd /Users/lucid/code/luciddg-server/modules/javascript/www/common && ls'
 alias testing='cd /Users/lucid/code/luciddg-server/modules/django/dashboard/testing && ls'
+alias mi='cd /Users/lucid/code/luciddg-server/modules/django/bin/migrations'
 alias mig='vagrant ssh -- -t "cd /vagrant && docker exec compose_www_1 python /code/luciddg-server/modules/django/dashboard/manage.py migrations apply"'
+
+# vagrant helpers (can ssh ld, ssh luciddg.localdev instead of vagrant ssh)
+
+# faster than vagrant ssh; allows sane attaching of other commands
+alias v='ssh -t lucidlive.localdev'
+
+# access docker-compose on vagrant through dc:
+alias dc='v /vagrant/docker/compose/ldg-compose'
+
+# do common tasks with the ldg docker containers:
+#alias dcup='dc up -d'
+#alias dckill='dc kill'
+#alias dcrm='dc rm -f'
+#alias dcdown='dckill && dcrm'
+#alias dcr='dcdown && dcup'
+
+# mysql from local client to vagrant server:
+#alias mysql='mysql -Ah 127.0.0.1 -u ldg_admin -p"74g.5dm1n!" dashboard'
+
+worker() {
+  v docker exec -it compose_worker_1 bash
+}
+
+manage() {
+  v docker exec compose_worker_1 python /code/luciddg-server/modules/django/dashboard/manage.py $@
+}
+
+manageit() {
+  v docker exec -it compose_worker_1 python /code/luciddg-server/modules/django/dashboard/manage.py $@
+}
+
+shell() {
+  manageit shell
+}
+
+runtests() {
+  manage runtests $@
+}
+
+www() {
+  wach ssh lucidlive.localdev docker exec compose_worker_1 python /code/luciddg-server/modules/django/dashboard/manage.py runtests $@
+}
+
+#runtests() {
+  #vagrant ssh -- -t 'cd /vagrant/modules/django/dashboard && python manage.py runtests ' "$@"
+#}
+
+#wtest() {
+  #wach "vagrant ssh -- -t 'cd /vagrant/modules/django/dashboard && python manage.py runtests '" "$@"
+#}
 
 comp() {
   cd /Users/lucid/code/luciddg-server/modules/javascript/www/common/components/$1 && ls
@@ -110,6 +155,7 @@ alias sty='cd /Users/lucid/code/luciddg-server/modules/styles/www/ && ls'
 alias tem='cd /Users/lucid/code/luciddg-server/modules/templates/www && ls'
 alias dja='cd /Users/lucid/code/luciddg-server/modules/django && ls'
 alias dash='cd /Users/lucid/code/luciddg-server/modules/django/dashboard && ls'
+alias rep='cd /Users/lucid/code/luciddg-server/modules/django/dashboard/reports && ls'
 alias svg='cd /Users/lucid/code/luciddg-server/modules/www/static/images/svg-store && ls'
 
 ### fiddles
@@ -277,6 +323,8 @@ alias ga='git add '
 alias gb='git branch '
 alias gba='git branch -a'
 alias gc='git commit '
+alias gca='git commit --amend'
+alias gcaf='git commit --amend --no-edit'
 alias gcf='git clean -f '
 alias gd='git diff '
 alias gdm='git diff master'
@@ -312,12 +360,20 @@ function backupD {
   gb | grep \* | cut -b 3- | awk '{print $1"_backup"}' | xargs git branch -D
 }
 
+function backup_name {
+  gb | grep \* | cut -b 3- | awk '{print $1"_backup"}'
+}
+
+alias gdb='git diff "$(backup_name)"'
+
 alias gom='git checkout master'
 alias gos='git checkout sprint'
+alias gospl='git checkout sprint && git pull'
 alias god='git checkout develop'
 alias gobu='git checkout backup'
 alias gp='git push'
 alias gpo='git push origin'
+alias gpos='git push origin sprint'
 alias gposu='git push --set-upstream origin `branch`'
 alias gpom='git push origin master'
 alias gpu='git push upstream'
@@ -332,6 +388,7 @@ alias gplrbo='git pull --rebase origin '
 alias gplrbos='git pull --rebase origin sprint'
 alias gplus='git pull upstream solution '
 alias gf='git fetch'
+alias gfo='git fetch origin'
 alias gfu='git fetch upstream'
 alias grb='git rebase'
 alias grbm='git rebase master'
@@ -348,6 +405,7 @@ alias got='git '
 alias get='git '
 alias gsl='git stash list'
 alias gss='git stash save '
+alias gsh='git show'
 
 # git branch current
 function gbc {
@@ -362,6 +420,15 @@ function gsa {
 
 function gsq {
   git reset --soft $1 && git commit --amend
+}
+
+# git stash save inverted
+function gssi {
+  ga .
+  gc -m 'tmp commit for stash save inverted'
+  git reset --soft HEAD~1
+  git reset HEAD
+  git stash save "$1"
 }
 
 ### Navigational Shortcuts
@@ -525,19 +592,21 @@ card () {
 # Functional Shortcuts
 
 mkcd () {
-	mkdir $1
-	cd $1
+  mkdir $1
+  cd $1
 }
 
 f () {
-	cd "$1"
-	ls
+  cd "$1"
+  ls
 }
 
 b () {
-	cd ..
-	ls
+  cd ..
+  ls
 }
+
+alias psg='ps | grep '
 
 alias oi='open index.html'
 
@@ -567,3 +636,6 @@ export PATH
 
 # added by Anaconda2 5.0.1 installer
 export PATH="/Users/home/anaconda2/bin:$PATH"
+
+# don't update homebrew on every brew install
+export HOMEBREW_NO_AUTO_UPDATE=1
