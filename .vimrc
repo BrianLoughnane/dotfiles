@@ -48,6 +48,7 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -74,9 +75,13 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 Plugin 'user/L9', {'name': 'newL9'}
 
+Plugin 'git://github.com/tpope/vim-surround.git'
+Plugin 'git://github.com/tpope/vim-repeat.git'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
+
+"filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -89,9 +94,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-
-Plugin 'git://github.com/tpope/vim-surround.git'
-Plugin 'git://github.com/tpope/vim-repeat.git'
 
 let g:surround_95 = "_('\r')"
 let g:surround_45 = "_(\"\r\")"
@@ -301,8 +303,6 @@ set tabstop=2
 "set lbr
 "set tw=80
 
-"set ai "Auto indent
-"set si "Smart indent
 set wrap "Wrap lines
 
 

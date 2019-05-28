@@ -93,7 +93,11 @@ alias app='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps && ls
 alias com='cd /Users/lucid/code/luciddg-server/modules/javascript/www/common && ls'
 alias testing='cd /Users/lucid/code/luciddg-server/modules/django/dashboard/testing && ls'
 alias mi='cd /Users/lucid/code/luciddg-server/modules/django/bin/migrations'
-alias mig='vagrant ssh -- -t "cd /vagrant && docker exec compose_www_1 python /code/luciddg-server/modules/django/dashboard/manage.py migrations apply"'
+alias mig='vagrant ssh -- -t "cd /vagrant && docker exec compose_worker_1 python /code/luciddg-server/modules/django/dashboard/manage.py migrations apply"'
+alias huskyD=" \
+  pushd . && \
+  cd /Users/lucid/code/luciddg-server/.git/hooks && grep -ril 'husky' . | xargs rm && \
+  popd"
 
 # vagrant helpers (can ssh ld, ssh luciddg.localdev instead of vagrant ssh)
 
@@ -112,6 +116,10 @@ alias dc='v /vagrant/docker/compose/ldg-compose'
 
 # mysql from local client to vagrant server:
 #alias mysql='mysql -Ah 127.0.0.1 -u ldg_admin -p"74g.5dm1n!" dashboard'
+
+sshd() {
+  v docker exec -it $1 bash
+}
 
 worker() {
   v docker exec -it compose_worker_1 bash
@@ -149,10 +157,8 @@ comp() {
   cd /Users/lucid/code/luciddg-server/modules/javascript/www/common/components/$1 && ls
 }
 
-alias bv='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps/bill-verification && ls'
-alias bud='cd /Users/lucid/code/luciddg-server/modules/javascript/www/apps/budgeting-v2 && ls'
-alias sty='cd /Users/lucid/code/luciddg-server/modules/styles/www/ && ls'
-alias tem='cd /Users/lucid/code/luciddg-server/modules/templates/www && ls'
+alias sty='cd /Users/lucid/code/luciddg-server/modules/styles/ && ls'
+alias tem='cd /Users/lucid/code/luciddg-server/modules/templates/ && ls'
 alias dja='cd /Users/lucid/code/luciddg-server/modules/django && ls'
 alias dash='cd /Users/lucid/code/luciddg-server/modules/django/dashboard && ls'
 alias rep='cd /Users/lucid/code/luciddg-server/modules/django/dashboard/reports && ls'
@@ -403,9 +409,16 @@ alias gk='gitk --all&'
 alias gx='gitx --all'
 alias got='git '
 alias get='git '
+alias gsh='git show'
 alias gsl='git stash list'
 alias gss='git stash save '
-alias gsh='git show'
+function gsa {
+  git stash apply stash@{$1}
+}
+# git stash reverse
+function gsr {
+  git stash show "$1" -p | git apply -R
+}
 
 # git branch current
 function gbc {
@@ -414,21 +427,8 @@ function gbc {
   echo ${br}
 }
 
-function gsa {
-  git stash apply stash@{$1}
-}
-
 function gsq {
   git reset --soft $1 && git commit --amend
-}
-
-# git stash save inverted
-function gssi {
-  ga .
-  gc -m 'tmp commit for stash save inverted'
-  git reset --soft HEAD~1
-  git reset HEAD
-  git stash save "$1"
 }
 
 ### Navigational Shortcuts
@@ -471,8 +471,12 @@ acki () {
 }
 
 agi () {
-  ag -i "$1" .
+  ag -i "$@" .
 }
+
+#agi () {
+  #ag -i "$1" .
+#}
 
 class () {
   ag -i "class $1"
