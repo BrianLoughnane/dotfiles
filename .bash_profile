@@ -5,6 +5,9 @@
 #alias prof="vim $HOME/.bash_profile" (replace with bprof)
 alias reprof=". $HOME/.bash_profile"
 
+# tmux 2.2 needs this - remove later
+export EVENT_NOKQUEUE=1
+
 # Dotfiles repo
 export DOTFILES_REPO="$HOME/code/dotfiles"
 export PATH=$PATH:$DOTFILES_REPO
