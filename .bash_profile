@@ -124,6 +124,26 @@ sshd() {
   v docker exec -it $1 bash
 }
 
+docssh() {
+  docker exec -it $1 bash
+}
+
+dstop() {
+  docker stop $(docker ps -qa)
+}
+
+dkill() {
+  docker kill $(docker ps -qa)
+}
+
+drm() {
+  docker rm $(docker ps -qa)
+}
+
+dup() {
+  docker-compose up
+}
+
 worker() {
   v docker exec -it compose_worker_1 bash
 }
@@ -173,7 +193,6 @@ alias svg='cd /Users/lucid/code/luciddg-server/modules/www/static/images/svg-sto
 
 ### fiddles
 # assumptions:
-## subl command to open sublime
 ## chrome command to open chrome
 
 luciddg_server="/Users/lucid/code/luciddg-server";
@@ -217,7 +236,7 @@ fiddle () {
   cd ~/code/fiddles
   cp -r fiddle-template "$1"-fiddle
   cd "$1"-fiddle
-  subl .
+  vim .
   chrome index.html 
 }
 
@@ -547,10 +566,6 @@ ff () {
   open -a "Firefox" "$1"
 }
 
-mail () {
-	open -a "Firefox" "https://mail.google.com"
-}
-
 maps () {
 	open -a "Google Chrome" "https://maps.google.com"
 }
@@ -636,11 +651,6 @@ alias clera="clear"
 
 alias npmi='npm install '
 alias npmig='npm install -g'
-
-tosu () {
-	touch "$1"
-	subl "$1"
-}
 
 # z () {
 # 	"$1"
