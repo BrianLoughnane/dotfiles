@@ -136,6 +136,10 @@ manageit() {
   v docker exec -it compose_worker_1 python /code/luciddg-server/modules/django/dashboard/manage.py $@
 }
 
+managew() {
+  v docker exec -it compose_www_1 python /code/luciddg-server/modules/django/dashboard/manage.py $@
+}
+
 shell() {
   manageit shell
 }
@@ -415,6 +419,11 @@ alias get='git '
 alias gsh='git show'
 alias gsl='git stash list'
 alias gss='git stash save '
+
+function gshno {
+  git show $1 --name-only
+}
+
 function gsa {
   git stash apply stash@{$1}
 }
@@ -429,6 +438,10 @@ function gbc {
   br=${br//\* /}
   echo ${br}
 }
+
+# git branch current copy
+alias rmnewline="tr -d '\n'"
+alias gbcc="gbc | rmnewline | pbcopy && echo 'copied branch ' | rmnewline && gbc"
 
 function gsq {
   git reset --soft $1 && git commit --amend

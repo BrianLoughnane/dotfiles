@@ -71,6 +71,7 @@ map gk :bn
 map Q @q   
 let @i = 'iimport ipdb; ipdb.set_trace();'
 let @l = 'ifrom dashboard.core import logger; logger.warning("sminky");'
+let @d = 'idebugger;'
 
 "Always show current position
 set ruler
@@ -93,6 +94,10 @@ endif
 " Allow usage of mouse in iTerm
 set ttyfast
 set mouse=a
+
+" makes tab completion more like bash navigating paths
+set wildmenu
+set wildmode=longest,list
 
 " Ignore case when searching
 set ignorecase
