@@ -97,6 +97,7 @@ alias com='cd /Users/lucid/code/luciddg-server/modules/javascript/www/common && 
 alias testing='cd /Users/lucid/code/luciddg-server/modules/django/dashboard/testing && ls'
 alias mi='cd /Users/lucid/code/luciddg-server/modules/django/bin/migrations'
 alias mig='vagrant ssh -- -t "cd /vagrant && docker exec compose_worker_1 python /code/luciddg-server/modules/django/dashboard/manage.py migrations apply"'
+alias not='cd ~/Library/Application\ Support/Notational\ Data/'
 alias huskyD=" \
   pushd . && \
   cd /Users/lucid/code/luciddg-server/.git/hooks && grep -ril 'husky' . | xargs rm && \
@@ -122,26 +123,6 @@ alias dc='v /vagrant/docker/compose/ldg-compose'
 
 sshd() {
   v docker exec -it $1 bash
-}
-
-docssh() {
-  docker exec -it $1 bash
-}
-
-dstop() {
-  docker stop $(docker ps -qa)
-}
-
-dkill() {
-  docker kill $(docker ps -qa)
-}
-
-drm() {
-  docker rm $(docker ps -qa)
-}
-
-dup() {
-  docker-compose up
 }
 
 worker() {
@@ -193,6 +174,7 @@ alias svg='cd /Users/lucid/code/luciddg-server/modules/www/static/images/svg-sto
 
 ### fiddles
 # assumptions:
+## subl command to open sublime
 ## chrome command to open chrome
 
 luciddg_server="/Users/lucid/code/luciddg-server";
@@ -236,7 +218,7 @@ fiddle () {
   cd ~/code/fiddles
   cp -r fiddle-template "$1"-fiddle
   cd "$1"-fiddle
-  vim .
+  subl .
   chrome index.html 
 }
 
@@ -566,6 +548,10 @@ ff () {
   open -a "Firefox" "$1"
 }
 
+mail () {
+	open -a "Firefox" "https://mail.google.com"
+}
+
 maps () {
 	open -a "Google Chrome" "https://maps.google.com"
 }
@@ -652,6 +638,11 @@ alias clera="clear"
 alias npmi='npm install '
 alias npmig='npm install -g'
 
+tosu () {
+	touch "$1"
+	subl "$1"
+}
+
 # z () {
 # 	"$1"
 # 	ls
@@ -660,7 +651,6 @@ alias npmig='npm install -g'
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-export PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -669,3 +659,16 @@ export PATH="/Users/home/anaconda2/bin:$PATH"
 
 # don't update homebrew on every brew install
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+# ruby stuff
+#export LDFLAGS="-L/usr/local/opt/ruby/lib"
+#export CPPFLAGS="-I/usr/local/opt/ruby/include"
+#export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+PATH="/usr/local/lib/ruby/gems/2.6.0/bin:${PATH}"
+export LDFLAGS="-L/usr/local/opt/ruby@2.6/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby@2.6/include"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby@2.6/lib/pkgconfig"
+
+export PATH
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
