@@ -8,6 +8,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 filetype plugin on
+filetype indent off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
